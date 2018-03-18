@@ -1,0 +1,356 @@
+$(document).ready(function () {
+    $.validator.addMethod("laxEmail", function (value, element) {
+        return this.optional(element) || /^[a-zA-Z][\w\.-]*[a-zA-Z0-9]@[a-zA-Z0-9][\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]$/.test(value);
+    }, 'Please enter a valid email address.');
+
+    $.validator.addMethod("isEmail", function (value, element) {
+        return this.optional(element) || /^[a-zA-Z][\w\.-]*[a-zA-Z0-9]@[a-zA-Z0-9][\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]$/.test(value);
+    }, 'Email not valid.');
+
+    $.validator.addMethod("isLink", function (value, element) {
+        return this.optional(element) || /^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/.test(value);
+    }, 'Please enter a valid URL.');
+    $.validator.addMethod("valueNotEquals", function (value, element, arg) {
+        return arg != value;
+    }, "Value must not equal arg.");
+});
+
+window.dpf = {
+    validate: {
+        newsletter_form: function () {
+            $("#homepage_newsletter").validate({
+                success: function (label) {
+                    label.addClass("valid").text("Ok!")
+                },
+                rules: {
+                    email: {
+                        required: true,
+                        laxEmail: true
+                    }
+                },
+                messages: {
+                    email: {
+                        required: 'Required Please'
+                    }
+                }
+            });
+            return window.dpf;
+        },
+        newsletter_form_sidebar: function () {
+            $('#users_news_store_first').validate({
+                success: function (label) {
+                    label.addClass("valid").text("Ok!")
+                },
+                rules: {
+                    email: {
+                        required: true,
+                        laxEmail: true
+                    }
+                },
+                messages: {
+                    email: {
+                        required: 'Required Please'
+                    }
+                }
+            });
+            return window.dpf;
+        },
+        login_popup: function () {
+            $("#top_login").validate({
+                success: function (label) {
+                    label.addClass("valid").text("Ok!")
+                },
+                rules: {
+                    "form[email]": {
+                        required: true,
+                        laxEmail: true
+                    },
+                    "form[password]": {
+                        required: true
+                    },
+                    messages: {
+                        "form[email]": {
+                            required: 'Required Please',
+                            email: 'Bad E-mail'
+                        },
+                        "form[password]": {
+                            required: 'Required Please'
+                        }
+                    }
+                }
+            });
+            return window.dpf;
+        },
+        login_page: function () {
+            $("#user-login").validate({
+                success: function (label) {
+                    label.addClass("valid").text("Ok!")
+                },
+                rules: {
+                    "form[email]": {
+                        required: true,
+                        laxEmail: true
+                    },
+                    "form[password]": {
+                        required: true
+                    },
+                    messages: {
+                        "form[email]": {
+                            required: 'Required Please',
+                            email: 'Bad E-mail'
+                        },
+                        "form[password]": {
+                            required: 'Required Please'
+                        }
+                    }
+                }
+            });
+            return window.dpf;
+        },
+        signup_popup: function () {
+            $("#top_register").validate({
+                success: function (label) {
+                    label.addClass("valid").text("Ok!")
+                },
+                rules: {
+                    "form[email]": {
+                        required: true,
+                        laxEmail: true
+                    },
+                    "form[password]": {
+                        required: true
+                    },
+                    messages: {
+                        "form[email]": {
+                            required: 'Required Please',
+                            email: 'Bad E-mail'
+                        },
+                        "form[password]": {
+                            required: 'Required Please'
+                        }
+                    }
+                }
+            });
+            return window.dpf;
+        },
+        editcoupon_form: function () {
+            $("#editcouponform").validate({
+                success: function (label) {
+                    label.addClass("valid").text("Ok!")
+                },
+                rules: {
+                    code: {
+                        required: true
+                    },
+                    shortdesc: {
+                        required: true,
+                        minlength: 10
+                    },
+                    link: {
+                        required: true,
+                        isLink: true
+                    }
+                },
+                messages: {
+                    code: {
+                        required: 'Required'
+                    },
+                    shortdesc: {
+                        required: 'Required'
+                    },
+                    link: {
+                        required: 'Required'
+                    }
+                }
+            });
+            return window.dpf;
+        },
+        addstore_form: function () {
+            $("#addstore").validate({
+                success: function (label) {
+                    label.addClass("valid").text("Ok!")
+                },
+                rules: {
+                    domain: {
+                        required: true,
+                        isLink: true
+                    },
+                    name: {
+                        required: true
+                    },
+                    categorysearch: {
+                        required: true
+                    },
+                    description: {
+                        required: true
+                    }
+                },
+                messages: {
+                    domain: {
+                        required: 'Required Please'
+                    },
+                    name: {
+                        required: 'Required Please'
+                    },
+                    categorysearch: {
+                        required: 'Required Please'
+                    },
+                    description: {
+                        required: 'Required Please'
+                    }
+                }
+            });
+            return window.dpf;
+        },
+        recoverpass_form: function () {
+            $("#recover-password-popup").validate({
+                success: function (label) {
+                    label.addClass("valid").text("Ok!")
+                },
+                rules: {
+                    email: {
+                        required: true
+                    }
+                }
+            });
+            return window.dpf;
+        },
+        confirmpass: function () {
+            $("#userprofile").validate({
+                rules: {
+                    pass_again: {
+                        equalTo: "#InputPassword"
+                    }
+                }
+            });
+            return window.dpf;
+        },
+        top_search: function () {
+            $("#top-search-form").validate({
+                rules: {
+                    q: {
+                        required: true
+                    }
+                }
+            });
+            return window.dpf;
+        },
+        searchLinkFinish: function () {
+            $("#searchLinkFinish").validate({
+                success: function (label) {
+                    label.addClass("valid").text("Ok!")
+                },
+                rules: {
+                    email: {
+                        required: true,
+                        laxEmail: true
+                    }
+                },
+                messages: {
+                    required: 'Required Please'
+                }
+            });
+            return window.dpf;
+        },
+        searchLink: function () {
+            $("#searchLink").validate({
+                rules: {
+                    isLink: {
+                        required: true,
+                        isLink: true
+                    }
+                },
+                messages: {
+                    isLink: {
+                        required: 'This field cannot be empty'
+                    }
+                }
+            });
+            return window.dpf;
+        },
+        scholarships_apply: function () {
+            $("#schoolarSubmit").validate({
+                rules: {
+                    name: {
+                        required: true
+                    },
+                    email: {
+                        required: true,
+                        laxEmail: true
+                    },
+                    phone: {
+                        required: true
+                    },
+                    dob_birthmonth: {
+                        required: true
+                    },
+                    dob_birthday: {
+                        required: true
+                    },
+                    dob_birthyear: {
+                        required: true
+                    },
+                    state: {
+                        required: true
+                    },
+                    city: {
+                        required: true
+                    },
+                    uni: {
+                        required: true
+                    },
+                    studies: {
+                        required: true
+                    },
+                    productsessay: {
+                        required: true
+                    },
+                    pricesessay: {
+                        required: true
+                    },
+                    onlineessay: {
+                        required: true
+                    }
+                }
+            });
+            return window.dpf;
+        },
+        contact_form: function () {
+            $('#contact_us_form').validate({
+                success: function (label) {
+                    label.addClass("valid").text("Ok!")
+                },
+                rules: {
+                    full_name: {
+                        required: true
+                    },
+                    email_address: {
+                        required: true
+                    },
+                    question_regarding: {
+                        required: true
+                    },
+                    message: {
+                        required: true
+                    }
+                },
+                messages: {
+                    full_name: {
+                        required: 'Required Please'
+                    },
+                    email_address: {
+                        required: 'Required Please'
+                    },
+                    question_regarding: {
+                        required: 'Required Please'
+                    },
+                    message: {
+                        required: 'Required Please',
+                        minlength: 30
+                    }
+                }
+            });
+        }
+    }
+};
+
